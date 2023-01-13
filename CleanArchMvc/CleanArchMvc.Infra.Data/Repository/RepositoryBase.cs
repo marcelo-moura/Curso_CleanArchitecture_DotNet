@@ -39,7 +39,7 @@ namespace CleanArchMvc.Infra.Data.Repository
             return entity;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int? id)
         {
             DbSet.Remove(await GetByIdAsync(id));
             await _context.SaveChangesAsync();
