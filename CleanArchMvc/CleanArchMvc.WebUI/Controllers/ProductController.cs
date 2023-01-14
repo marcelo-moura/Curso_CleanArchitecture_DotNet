@@ -5,9 +5,10 @@ namespace CleanArchMvc.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductService _productService;
+        //private readonly IProductService _productService;
+        private readonly IProductServiceComMediator _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductServiceComMediator productService)
         {
             _productService = productService;
         }
