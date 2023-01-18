@@ -22,7 +22,7 @@ namespace CleanArchMvc.Application.DTOs
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The Price is required")]
-        [Column(TypeName = "decimal(18,2")]
+        [Column(TypeName = "decimal(18,2)")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
         [DisplayName("Price")]
@@ -33,12 +33,12 @@ namespace CleanArchMvc.Application.DTOs
         [DisplayName("Stock")]
         public int Stock { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(250)]
         [DisplayName("Product Image")]
         public string Image { get; set; }
-
+          
         [DisplayName("Categories")]
-        public int CateogryId { get; set; }
-        public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
     }
 }
