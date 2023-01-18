@@ -10,11 +10,14 @@ namespace CleanArchMvc.WebUI.Controllers
         //private readonly IProductService _productService;
         private readonly IProductServiceComMediator _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(IProductServiceComMediator productService, ICategoryService categoryService)
+        public ProductController(IProductServiceComMediator productService, ICategoryService categoryService,
+                                 IWebHostEnvironment environment)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -22,6 +25,22 @@ namespace CleanArchMvc.WebUI.Controllers
         {
             var products = await _productService.GetAllAsync();
             return View(products);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null) return NotFound();
+
+            var productDTO = await _productService.GetByIdAsync(id);
+            if (productDTO is null) return NotFound();
+
+            var wwwrootPath = _environment.WebRootPath;
+            var image = Path.Combine(wwwrootPath, "images\\" + productDTO.Image);
+            var exists = System.IO.File.Exists(image);
+            ViewBag.ImageExist = exists;
+
+            return View(productDTO);
         }
 
         [HttpGet]
