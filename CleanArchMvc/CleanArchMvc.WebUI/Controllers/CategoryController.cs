@@ -21,6 +21,17 @@ namespace CleanArchMvc.WebUI.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null) return NotFound();
+
+            var categoryDTO = await _categoryService.GetByIdAsync(id);
+            if (categoryDTO is null) return NotFound();
+
+            return View(categoryDTO);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
